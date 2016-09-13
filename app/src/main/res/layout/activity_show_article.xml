@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="be.daniel.naturalcornerandroid.ShowArticleActivity"
+    android:background="@android:color/holo_orange_dark">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:id="@+id/imageViewArticle"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/fruits_display"
+        android:adjustViewBounds="false"
+        android:background="@android:color/white"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Denomination"
+        android:id="@+id/textViewDenomination"
+        android:layout_below="@+id/imageViewArticle"
+        android:layout_marginTop="99dp"
+        android:layout_marginBottom="16dp"
+        android:layout_centerInParent="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textViewDenomination"
+        android:layout_toStartOf="@+id/textViewPrice"
+        android:layout_alignEnd="@+id/textViewPrice">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Commentaire"
+            android:id="@+id/textViewCommentaire"
+            android:background="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewBlank"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Price"
+            android:id="@+id/textViewPrice"
+            android:layout_below="@+id/imageViewArticle"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right"
+            android:layout_margin="16dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD TO CART"
+            android:id="@+id/buttonAdd"
+            android:layout_below="@+id/textViewPrice"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>

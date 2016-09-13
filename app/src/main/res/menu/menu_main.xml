@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/receive_notification" android:id="@+id/notification_menu"/>
+    <item android:title="@string/sort_a_z" android:id="@+id/sort_a_z_menu"/>
+    <item android:title="@string/sort_by_price" android:id="@+id/sort_price_menu"/>
+</menu>
