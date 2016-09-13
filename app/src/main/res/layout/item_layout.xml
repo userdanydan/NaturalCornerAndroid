@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="6dip">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/album_list_item_tv_denomination"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textAlignment="center" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dip"
+        android:contentDescription="TODO"
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/image_article" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="26dip"
+        android:ellipsize="marquee"
+        android:textSize="12sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tv_item_row"
+        android:layout_alignBottom="@+id/image_article"
+        android:layout_alignTop="@+id/image_article"
+        android:layout_toEndOf="@+id/image_article" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tv_item_price_row"
+        android:layout_alignTop="@+id/image_article"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/image_article" />
+
+</RelativeLayout>
