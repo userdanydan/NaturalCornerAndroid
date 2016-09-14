@@ -24,11 +24,16 @@ public class Panier {
     }
 
     public int getNbArticles() {
-        return nbArticles;
+        int nbArticle=0;
+        for(LignePanier ligne : lignes){
+            nbArticle+=ligne.getQuantite();
+        }
+        return nbArticle;
     }
 
     public void setNbArticles(int nbArticles) {
         this.nbArticles = nbArticles;
+        recalculer();
     }
 
     public BigDecimal getPrixTotal() {
@@ -40,13 +45,18 @@ public class Panier {
     }
 
     public boolean ajouterLigne(LignePanier lPanier){
-        if(lignes!=null)
-            return lignes.add(lPanier);
+        if(lignes!=null) {
+            boolean addOK = lignes.add(lPanier);
+            recalculer();
+            return addOK;
+        }
         return false;
     }
     public boolean retirerLigne(LignePanier lignePanier){
-        if(lignes!=null)
-            return this.lignes.remove(lignePanier);
+        if(lignes!=null) {
+            boolean removeOK = this.lignes.remove(lignePanier);
+            return removeOK;
+        }
         return false;
     }
     public boolean viderPanier(){
@@ -65,12 +75,22 @@ public class Panier {
         setPrixTotal(total);
     }
 
+    public ArrayList<LignePanier> getLignes() {
+        return lignes;
+    }
+
     @Override
     public String toString() {
+        String str ="";
+        for(LignePanier ligne : this.lignes){
+            str += ligne.toString();
+            str +=  "\r\n";
+        }
         return "Panier{" +
-                "id=" + id +
-                ", nbArticles=" + nbArticles +
-                ", prixTotal=" + prixTotal +
+                "id=" + getId()+
+                ", nbArticles=" + getNbArticles() +
+                ", prixTotal=" + getPrixTotal() +
+                ", contenu du panier=" + str +
                 '}';
     }
 }

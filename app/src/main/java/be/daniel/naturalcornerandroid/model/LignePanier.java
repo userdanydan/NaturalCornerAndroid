@@ -9,10 +9,9 @@ import java.util.ArrayList;
 public class LignePanier {
     private int id, quantite;
     private BigDecimal montant;
-    private ArrayList<Article> articles;
+    private Article article;
 
     public LignePanier() {
-        articles = new ArrayList<>();
     }
 
     public int getId() {
@@ -24,24 +23,36 @@ public class LignePanier {
     }
 
     public int getQuantite() {
-        return articles.size();
+        return quantite;
     }
 
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+        setMontant(this.article.getPrixUnitaire().multiply(new BigDecimal(quantite)));
+    }
+
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
 
     public BigDecimal getMontant() {
-        BigDecimal total = new BigDecimal(.0);
-        for(Article article : articles){
-            total = total.add(article.getPrixUnitaire());
-        }
-        return total;
+        return article.getPrixUnitaire().multiply(new BigDecimal(quantite));
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     @Override
     public String toString() {
         return "LignePanier{" +
-                "id=" + id +
-                ", quantite=" + quantite +
-                ", montant=" + montant +
+                "id=" + getId() +
+                ", quantite=" + getQuantite() +
+                ", montant=" + getMontant() +
                 '}';
     }
 }

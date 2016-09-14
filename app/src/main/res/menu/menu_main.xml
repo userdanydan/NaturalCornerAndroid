@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="@string/receive_notification" android:id="@+id/notification_menu"/>
     <item android:title="@string/sort_a_z" android:id="@+id/sort_a_z_menu"/>
     <item android:title="@string/sort_by_price" android:id="@+id/sort_price_menu"/>
+    <item android:id="@+id/see_basket"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:title="@string/to_your_basket"
+        app:showAsAction="ifRoom">
+    </item>
+    <item android:id="@+id/natural_corner_logo_mini"
+        android:icon="@drawable/logomini"
+        android:title="@string/natural_corner"
+        app:showAsAction="always">
+
+    </item>
 </menu>

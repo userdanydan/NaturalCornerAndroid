@@ -92,7 +92,13 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("from", FROM_SIGN_IN);
                             startActivity(intent);
                         }else{
-                            Toast.makeText(LoginActivity.this, "INCORRECT EMAIL AND/OR PASSWORD", Toast.LENGTH_SHORT).show();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(LoginActivity.this, "INCORRECT EMAIL AND/OR PASSWORD", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
                         }
                     }
                 }).start();

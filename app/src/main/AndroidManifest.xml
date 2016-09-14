@@ -12,11 +12,12 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".naturalcornerapplication.NaturalCornerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +43,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="be.daniel.naturalcornerandroid.LoginActivity" />
         </activity>
-        <activity android:name=".ShowArticleActivity"></activity>
+        <activity android:name=".ShowArticleActivity" />
+        <activity android:name=".BasketActivity"></activity>
     </application>
 
 </manifest>

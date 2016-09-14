@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -52,6 +54,8 @@ import java.util.Set;
 import be.daniel.naturalcornerandroid.adapter.ArticleCursorAdapter;
 import be.daniel.naturalcornerandroid.db.ArticleDAO;
 import be.daniel.naturalcornerandroid.model.Article;
+import be.daniel.naturalcornerandroid.model.Panier;
+import be.daniel.naturalcornerandroid.naturalcornerapplication.NaturalCornerApplication;
 import be.daniel.naturalcornerandroid.task.LoadArticlesTask;
 
 
@@ -61,9 +65,11 @@ public class MainScreenActivity extends AppCompatActivity {
     private ListView listView;
     private double latitude, longitude;
     private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
     private HashMap<String, List<Article>> articlesCategories;
-    private boolean listDisplayed, naturalAlphaOrderDone, naturalPriceOrderDone, isDisplayedByCategory;
+    private boolean listDisplayed, naturalAlphaOrderDone, naturalPriceOrderDone, isDisplayedByCategory, proximityAlerted;
     private String currentCategory;
+    private NaturalCornerApplication nCApp;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -75,14 +81,28 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         //receiveIntent();
+        setAppBar();
+        setBasket();
         setList();
         setDrawer();
         setAdapter();
         geoLocalization();
 
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void setAppBar() {
+        Toolbar myToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolBar);
+    }
+
+    private void setBasket() {
+        nCApp = (NaturalCornerApplication) getApplication();
+        if(nCApp.getPanier()==null)
+            nCApp.setPanier(new Panier());
     }
 
     private void setList() {
@@ -105,6 +125,36 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private void setDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_main_screen);
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                getSupportActionBar().setTitle("Natural Corner");
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("By Category");
+            }
+        };
+
+        drawerLayout.setDrawerListener(mDrawerToggle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
 
@@ -124,8 +174,11 @@ public class MainScreenActivity extends AppCompatActivity {
                 locationNaturalCorner.setLatitude(LATITUDE_NATURAL_CORNER);
                 locationNaturalCorner.setLongitude(LONGITUDE_NATURAL_CORNER);
                 float distanceFromNaturalCorner = location.distanceTo(locationNaturalCorner);
-                if (distanceFromNaturalCorner <= 200.0) {
+                if (distanceFromNaturalCorner <= 200.0 && !proximityAlerted) {
                     Toast.makeText(MainScreenActivity.this, "Vous êtes à proximité de NATURAL CORNER", Toast.LENGTH_SHORT).show();
+                    proximityAlerted=true;
+                }else{
+                    proximityAlerted=false;
                 }
             }
 
@@ -181,6 +234,7 @@ public class MainScreenActivity extends AppCompatActivity {
         for (Article article : articlesAll) {
             categories.add(article.getCategorie());
         }
+        articlesCategories.put("All" + " (" + articlesAll.size() + ")", articlesAll);
         for (String cat : categories) {
             List<Article> listCategorie = new ArrayList<Article>();
             for (Article article : articlesAll) {
@@ -191,6 +245,7 @@ public class MainScreenActivity extends AppCompatActivity {
             articlesCategories.put(cat + " (" + listCategorie.size() + ")", listCategorie);
         }
         String[] categoriesNames = articlesCategories.keySet().toArray(new String[articlesCategories.keySet().size()]);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getApplicationContext(),
                 android.R.layout.simple_list_item_activated_1,
@@ -251,10 +306,22 @@ public class MainScreenActivity extends AppCompatActivity {
                 break;
             case R.id.sort_price_menu:
                 sortByPrice();
+                break;
+            case R.id.see_basket:
+                nCApp = (NaturalCornerApplication) getApplication();
+                Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
+                startActivity(intent);
+                //Toast.makeText(MainScreenActivity.this, nCApp.getPanier().toString(), Toast.LENGTH_LONG).show();
+            case R.id.natural_corner_logo_mini:
+
             default:
                 break;
         }
-        return true;
+
+        if(mDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void sortByPrice() {
