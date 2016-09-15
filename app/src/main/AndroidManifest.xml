@@ -44,7 +44,8 @@
                 android:value="be.daniel.naturalcornerandroid.LoginActivity" />
         </activity>
         <activity android:name=".ShowArticleActivity" />
-        <activity android:name=".BasketActivity"></activity>
+        <activity android:name=".BasketActivity" />
+        <activity android:name=".ShowAccountActivity"></activity>
     </application>
 
 </manifest>

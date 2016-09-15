@@ -6,6 +6,8 @@ package be.daniel.naturalcornerandroid.model;
 public class User {
     private int id;
     private String name, email, nickname, password;
+    private Adresse adresse;
+    private Commande commande;
 
     public User() {
     }
@@ -57,6 +59,22 @@ public class User {
         this.password = password;
     }
 
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
+    }
+
+    public Commande getCommande() {
+        return commande;
+    }
+
+    public void setCommande(Commande commande) {
+        this.commande = commande;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,10 +99,13 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", password='" + password + '\'' +
+                ", adresse=" + adresse +
+                ", commande=" + commande +
                 '}';
     }
 }

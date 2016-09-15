@@ -35,6 +35,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import be.daniel.naturalcornerandroid.model.User;
+import be.daniel.naturalcornerandroid.naturalcornerapplication.NaturalCornerApplication;
+
 public class LoginActivity extends AppCompatActivity {
     public static final String CREDENTIALS = "Credentials";
     public static final String FROM_SIGN_IN = "from sign in button";
@@ -45,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonSignInLogin, buttonCreateAccountLogin, buttonContinueWithoutSigningInLogin;
     private volatile boolean isIdentified;
     private volatile String jsonContent;
+    private NaturalCornerApplication NCapp;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -177,7 +181,13 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("JSON_RESULT", jsonObject.toString());
                 String emailFromJson = jsonObject.getString("email");
                 String passwordFromJson = jsonObject.getString("password");
+                String nameFromJson = jsonObject.getString("name");
+                int idFromJson = jsonObject.getInt("id");
                 if(passwordFromJson.equals(password)){
+                    NCapp.getUser().setEmail(emailFromJson);
+                    NCapp.getUser().setPassword(passwordFromJson);
+                    NCapp.getUser().setName(nameFromJson);
+                    NCapp.getUser().setId(idFromJson);
                     isIdentified=true;
                 }else {
                     Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
@@ -197,7 +207,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
+        NCapp = (NaturalCornerApplication)getApplication();
+        NCapp.setUser(new User());
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
@@ -212,6 +223,15 @@ public class LoginActivity extends AppCompatActivity {
                 Uri.parse("android-app://be.daniel.naturalcornerandroid/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NCapp = (NaturalCornerApplication)getApplication();
+        if(NCapp.getUser()!=null)
+            NCapp.setUser(null);
+        NCapp.setUser(new User());
     }
 
     @Override

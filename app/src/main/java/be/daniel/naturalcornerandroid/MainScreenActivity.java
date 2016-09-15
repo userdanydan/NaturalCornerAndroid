@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.database.Cursor;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,7 +13,7 @@ import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
+
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -24,13 +24,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -81,8 +85,8 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         //receiveIntent();
-        setAppBar();
         setBasket();
+        setAppBar();
         setList();
         setDrawer();
         setAdapter();
@@ -94,17 +98,19 @@ public class MainScreenActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void setAppBar() {
-        Toolbar myToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolBar);
-    }
-
     private void setBasket() {
         nCApp = (NaturalCornerApplication) getApplication();
         if(nCApp.getPanier()==null)
             nCApp.setPanier(new Panier());
     }
-
+    private void setAppBar() {
+        if(nCApp==null)
+            nCApp = (NaturalCornerApplication)getApplication();
+        Toolbar myToolBar = (Toolbar) findViewById(R.id.toolbar);
+        myToolBar.setSubtitle("TOTAL : " +
+                ( (nCApp.getPanier().getPrixTotal()==null) ? .0 : nCApp.getPanier().getPrixTotal()) + " €");
+        setSupportActionBar(myToolBar);
+    }
     private void setList() {
         ArticleDAO articleDAO = new ArticleDAO(getApplicationContext());
         articleDAO.openReadable();
@@ -252,6 +258,11 @@ public class MainScreenActivity extends AppCompatActivity {
                 categoriesNames
         );
         listView.setAdapter(adapter);
+        TextView tv = new TextView(getApplicationContext());
+        tv.setText("CATEGORY");
+        tv.setTextSize(20);
+        tv.setPadding(16, 16, 16, 16);
+        listView.addHeaderView(tv);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -270,6 +281,8 @@ public class MainScreenActivity extends AppCompatActivity {
 
                 isDisplayedByCategory=true;
                 listDisplayed = true;
+
+                MainScreenActivity.this.drawerLayout.closeDrawer(Gravity.LEFT);
             }
         });
     }
@@ -311,9 +324,12 @@ public class MainScreenActivity extends AppCompatActivity {
                 nCApp = (NaturalCornerApplication) getApplication();
                 Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
                 startActivity(intent);
+                break;
                 //Toast.makeText(MainScreenActivity.this, nCApp.getPanier().toString(), Toast.LENGTH_LONG).show();
             case R.id.natural_corner_logo_mini:
-
+                Intent intent1 = new Intent(getApplicationContext(), ShowAccountActivity.class);
+                startActivity(intent1);
+                break;
             default:
                 break;
         }
@@ -430,6 +446,7 @@ public class MainScreenActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        setAppBar();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

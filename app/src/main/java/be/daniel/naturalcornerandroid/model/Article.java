@@ -10,7 +10,9 @@ public class Article implements Serializable{
     private int id;
     private String denomination, commentaire, categorie;
     private BigDecimal prixUnitaire;
-    private boolean selected;
+    private boolean selected, enPromo;
+    private Rayon rayon;
+    private Categorie categorieProduits;
 
     public Article() {
 
@@ -71,6 +73,30 @@ public class Article implements Serializable{
         this.selected = selected;
     }
 
+    public boolean isEnPromo() {
+        return enPromo;
+    }
+
+    public void setEnPromo(boolean enPromo) {
+        this.enPromo = enPromo;
+    }
+
+    public Rayon getRayon() {
+        return rayon;
+    }
+
+    public void setRayon(Rayon rayon) {
+        this.rayon = rayon;
+    }
+
+    public Categorie getCategorieProduits() {
+        return categorieProduits;
+    }
+
+    public void setCategorieProduits(Categorie categorieProduits) {
+        this.categorieProduits = categorieProduits;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,11 +117,15 @@ public class Article implements Serializable{
     @Override
     public String toString() {
         return "Article{" +
-                "denomination='" + denomination + '\'' +
+                "id=" + id +
+                ", denomination='" + denomination + '\'' +
                 ", commentaire='" + commentaire + '\'' +
                 ", categorie='" + categorie + '\'' +
                 ", prixUnitaire=" + prixUnitaire +
+                ", selected=" + selected +
+                ", enPromo=" + enPromo +
+                ", rayon=" + rayon +
+                ", categorieProduits=" + categorieProduits +
                 '}';
     }
-
 }

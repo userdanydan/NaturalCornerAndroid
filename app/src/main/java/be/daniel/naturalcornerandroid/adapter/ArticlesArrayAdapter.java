@@ -34,7 +34,7 @@ public class ArticlesArrayAdapter extends ArrayAdapter<Article> {
         TextView tvPrice = (TextView) rowView.findViewById(R.id.tv_item_price_row);
         ImageView iv = (ImageView) rowView.findViewById(R.id.image_article);
         tv.setText(values.get(position).getDenomination());
-        tvPrice.setText(" EUR : " + values.get(position).getPrixUnitaire());
+        tvPrice.setText(values.get(position).getPrixUnitaire() + " €" );
         return rowView;
     }
 }

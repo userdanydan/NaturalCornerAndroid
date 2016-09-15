@@ -10,8 +10,8 @@
         app:showAsAction="ifRoom">
     </item>
     <item android:id="@+id/natural_corner_logo_mini"
-        android:icon="@drawable/logomini"
-        android:title="@string/natural_corner"
+        android:icon="@drawable/ic_face_black_24dp"
+        android:title="Account"
         app:showAsAction="always">
 
     </item>

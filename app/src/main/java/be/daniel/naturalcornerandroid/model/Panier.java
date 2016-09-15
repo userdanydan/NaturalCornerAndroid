@@ -45,13 +45,31 @@ public class Panier {
     }
 
     public boolean ajouterLigne(LignePanier lPanier){
+        boolean addOK=false;
         if(lignes!=null) {
-            boolean addOK = lignes.add(lPanier);
-            recalculer();
-            return addOK;
+            boolean ligneExistante=false;
+            for(LignePanier ligne : lignes){
+                if(lPanier.getArticle().equals(ligne.getArticle())){
+                    ligne.setQuantite(ligne.getQuantite()+lPanier.getQuantite());
+                    ligneExistante=true;
+                    addOK=true;
+                }
+            }
+            if(!ligneExistante) {
+                addOK = lignes.add(lPanier);
+                recalculer();
+                return addOK;
+            }
         }
-        return false;
+        return addOK;
     }
+
+    private void scinderLignesPanierPourUnMemeArticle(LignePanier lPanier) {
+
+
+    }
+
+
     public boolean retirerLigne(LignePanier lignePanier){
         if(lignes!=null) {
             boolean removeOK = this.lignes.remove(lignePanier);

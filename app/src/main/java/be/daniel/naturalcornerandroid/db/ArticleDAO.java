@@ -16,13 +16,17 @@ import be.daniel.naturalcornerandroid.model.Article;
  * Created by ivymike on 09/09/16.
  */
 public class ArticleDAO {
+    //TABLES DE LA BDD
     public static final String TABLE_ARTICLE="ARTICLE";
 
+
+    //COLONNES TABLE T_ARTICLES
     public static final String COLUMN_ID="ID";
     public static final String COLUMN_DENOMINATION="DENOMINATION";
     public static final String COLUMN_COMMENTAIRE="COMMENTAIRE";
     public static final String COLUMN_PRIX_UNITAIRE="PRIX_UNITAIRE";
     public static final String COLUMN_CATEGORIE="CATEGORIE";
+
 
     public static final String CREATE_REQUEST ="CREATE TABLE " + ArticleDAO.TABLE_ARTICLE
             +" (" + ArticleDAO.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
