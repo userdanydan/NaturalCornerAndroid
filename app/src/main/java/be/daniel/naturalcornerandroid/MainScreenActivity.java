@@ -33,6 +33,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -291,6 +293,49 @@ public class MainScreenActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+
+        final AutoCompleteTextView actvSearch = new AutoCompleteTextView(getApplicationContext());
+        final ArrayList<String> testList = new ArrayList<>();
+        ArticleDAO articleDAO = new ArticleDAO(getApplicationContext());
+        articleDAO.openReadable();
+        final List<Article> articlesAll = articleDAO.readAll();
+        for(Article article : articlesAll){
+            testList.add(article.getDenomination());
+        }
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_list_item_activated_1,
+                testList);
+        actvSearch.setAdapter(adapter);
+        actvSearch.setWidth(450);
+        actvSearch.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
+        actvSearch.setHint("Search");
+        actvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String denomination=(String)parent.getItemAtPosition(position);
+                Article articleFound = null;
+                for(Article article : articlesAll){
+                    if(article.getDenomination().equals(denomination)){
+                        articleFound=article;
+                    }
+                }
+
+                Fragment fragment = new ArticleListFragment();
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.list, fragment).commit();
+
+                Bundle bundle = new Bundle();
+                ArrayList<Article> articleList = new ArrayList<Article>();
+                articleList.add(articleFound);
+                bundle.putSerializable("list_articles", new MySerializableList(articleList));
+                fragment.setArguments(bundle);
+
+                listDisplayed = true;
+            }
+        });
+
+        menu.add(1, actvSearch.getId(), 1, "Search").setActionView(actvSearch).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         super.onPrepareOptionsMenu(menu);
         if (listDisplayed) {
             menu.getItem(1).setVisible(true);
