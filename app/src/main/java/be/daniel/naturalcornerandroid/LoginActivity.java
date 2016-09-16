@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(LoginActivity.this, "INCORRECT EMAIL AND/OR PASSWORD", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, R.string.incorrect_email, Toast.LENGTH_SHORT).show();
 
                                 }
                             });
@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                         jsonContent = new String(bytesRaw, 0, bytesRead);
                     }
                 }else{
-                    Toast.makeText(LoginActivity.this, "Not getting anything from the remote server", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.not_getting_anything, Toast.LENGTH_SHORT).show();
                     isIdentified=false;
                 }
             } catch (MalformedURLException e) {
@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                     NCapp.getUser().setId(idFromJson);
                     isIdentified=true;
                 }else {
-                    Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.incorrect_pwd, Toast.LENGTH_SHORT).show();
                     isIdentified=false;
                 }
             } catch (Exception e) {
@@ -198,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         }else{
-            Toast.makeText(LoginActivity.this, "No connexion to the remote server", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, R.string.no_connexion, Toast.LENGTH_SHORT).show();
             isIdentified=false;
         }
         return isIdentified;

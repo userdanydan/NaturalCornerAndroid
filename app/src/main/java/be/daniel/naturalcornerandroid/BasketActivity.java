@@ -3,6 +3,7 @@ package be.daniel.naturalcornerandroid;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,19 +68,19 @@ public class BasketActivity extends AppCompatActivity {
 
             final TextView tvArticleName = new TextView(getApplicationContext());
             tvArticleName.setText((counter+1) + " : " +lignePanier.getArticle().getDenomination());
-            tvArticleName.setTextSize(16);
+            tvArticleName.setTextSize(24);
             tvArticleName.setPadding(16, 0, 16, 0);
 
 
             TextView tvArticlePrice = new TextView(getApplicationContext());
             tvArticlePrice.setText(String.valueOf(lignePanier.getArticle().getPrixUnitaire()) + " X " + lignePanier.getQuantite());
-            tvArticlePrice.setTextSize(18);
+            tvArticlePrice.setTextSize(24);
             tvArticlePrice.setPadding(16, 0, 16, 0);
             tvArticlePrice.setGravity(Gravity.CENTER_HORIZONTAL);
 
             TextView tvArticleTotalPrice = new TextView(getApplicationContext());
             tvArticleTotalPrice.setText(String.valueOf(lignePanier.getMontant()));
-            tvArticleTotalPrice.setTextSize(18);
+            tvArticleTotalPrice.setTextSize(24);
             tvArticleTotalPrice.setPadding(16, 0, 16, 0);
 
 
@@ -90,7 +91,8 @@ public class BasketActivity extends AppCompatActivity {
 
             final EditText etChangeNbArticle = new EditText(getApplicationContext());
             etChangeNbArticle.setInputType(InputType.TYPE_CLASS_NUMBER| InputType.TYPE_NUMBER_VARIATION_NORMAL);
-            etChangeNbArticle.setWidth(68);
+            etChangeNbArticle.setWidth(100);
+            etChangeNbArticle.setTextSize(32);
             etChangeNbArticle.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
             etChangeNbArticle.setText(Integer.toString(lignePanier.getQuantite()));
 

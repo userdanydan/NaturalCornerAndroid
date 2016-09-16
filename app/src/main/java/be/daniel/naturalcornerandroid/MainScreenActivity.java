@@ -107,8 +107,10 @@ public class MainScreenActivity extends AppCompatActivity {
         if(nCApp==null)
             nCApp = (NaturalCornerApplication)getApplication();
         Toolbar myToolBar = (Toolbar) findViewById(R.id.toolbar);
-        myToolBar.setSubtitle("TOTAL : " +
-                ( (nCApp.getPanier().getPrixTotal()==null) ? .0 : nCApp.getPanier().getPrixTotal()) + " €");
+        if (myToolBar != null) {
+            myToolBar.setSubtitle(getString(R.string.total) +
+                    ( (nCApp.getPanier().getPrixTotal()==null) ? .0 : nCApp.getPanier().getPrixTotal()) + getString(R.string.euro));
+        }
         setSupportActionBar(myToolBar);
     }
     private void setList() {
@@ -135,13 +137,13 @@ public class MainScreenActivity extends AppCompatActivity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                getSupportActionBar().setTitle("Natural Corner");
+                getSupportActionBar().setTitle(R.string.nc_title);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("By Category");
+                getSupportActionBar().setTitle(R.string.by_cat);
             }
         };
 
@@ -181,7 +183,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 locationNaturalCorner.setLongitude(LONGITUDE_NATURAL_CORNER);
                 float distanceFromNaturalCorner = location.distanceTo(locationNaturalCorner);
                 if (distanceFromNaturalCorner <= 200.0 && !proximityAlerted) {
-                    Toast.makeText(MainScreenActivity.this, "Vous êtes à proximité de NATURAL CORNER", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainScreenActivity.this, R.string.proximity_nc, Toast.LENGTH_SHORT).show();
                     proximityAlerted=true;
                 }else{
                     proximityAlerted=false;
@@ -240,7 +242,7 @@ public class MainScreenActivity extends AppCompatActivity {
         for (Article article : articlesAll) {
             categories.add(article.getCategorie());
         }
-        articlesCategories.put("All" + " (" + articlesAll.size() + ")", articlesAll);
+        articlesCategories.put(getString(R.string.all) + " (" + articlesAll.size() + ")", articlesAll);
         for (String cat : categories) {
             List<Article> listCategorie = new ArrayList<Article>();
             for (Article article : articlesAll) {
@@ -259,7 +261,7 @@ public class MainScreenActivity extends AppCompatActivity {
         );
         listView.setAdapter(adapter);
         TextView tv = new TextView(getApplicationContext());
-        tv.setText("CATEGORY");
+        tv.setText(R.string.category);
         tv.setTextSize(20);
         tv.setPadding(16, 16, 16, 16);
         listView.addHeaderView(tv);
@@ -432,7 +434,7 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private void disableNotification() {
         //TODO DISABLE NOTIFICATIONS
-        Toast.makeText(MainScreenActivity.this, "Notifications disabled (fake)", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainScreenActivity.this, R.string.not_disabled, Toast.LENGTH_SHORT).show();
     }
 
     public String getCurrentCategory() {

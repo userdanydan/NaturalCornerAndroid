@@ -14,7 +14,7 @@
     <application
         android:name=".naturalcornerapplication.NaturalCornerApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_logo_natural_corner_rounded"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">

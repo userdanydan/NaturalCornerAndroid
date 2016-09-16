@@ -48,7 +48,7 @@ public class ShowArticleActivity extends AppCompatActivity {
         if(extra!=null){
             article = (Article) extra.get("article");
             tvDenomination.setText(article.getDenomination());
-            tvCommentaire.setText(article.getCommentaire().substring(0, 250)+ "\n\r"+" [...] ");
+            tvCommentaire.setText(article.getCommentaire().substring(0, article.getCommentaire().length()/5)+ "\n\r"+" [...] ");
             tvCommentaire.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -56,7 +56,7 @@ public class ShowArticleActivity extends AppCompatActivity {
                         tvCommentaire.setText(article.getCommentaire());
                         expandedTextClicked = true;
                     }else{
-                        tvCommentaire.setText(article.getCommentaire().substring(0, 250)+ "\n\r"+" [...] ");
+                        tvCommentaire.setText(article.getCommentaire().substring(0, article.getCommentaire().length()/5)+ "\n\r"+" [...] ");
                         expandedTextClicked = false;
                     }
                 }
@@ -75,9 +75,9 @@ public class ShowArticleActivity extends AppCompatActivity {
                         String str = getSupportActionBar().getSubtitle().toString();
                         Log.i("STR", str);
                         getSupportActionBar().setSubtitle(str.substring(0, str.indexOf(" : ")) + " : " + app.getPanier().getPrixTotal().toString() + " €");
-                        Toast.makeText(ShowArticleActivity.this, "Added to your Basket", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShowArticleActivity.this, R.string.added_to_basket, Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(ShowArticleActivity.this, "Not Added to your Basket", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShowArticleActivity.this, R.string.not_added_to_basket, Toast.LENGTH_SHORT).show();
                     }
                     nbArticle.setText("1");
 
@@ -107,7 +107,7 @@ public class ShowArticleActivity extends AppCompatActivity {
         Toolbar myToolBar = (Toolbar) findViewById(R.id.toolbar_show_article);
 
         myToolBar.setSubtitle("TOTAL : " +
-                ( (nCApp.getPanier().getPrixTotal()==null) ? .0 : nCApp.getPanier().getPrixTotal()) + " €");
+                ( (nCApp.getPanier().getPrixTotal()==null) ? .0 : nCApp.getPanier().getPrixTotal().toString()) + " €");
         setSupportActionBar(myToolBar);
     }
     @Override

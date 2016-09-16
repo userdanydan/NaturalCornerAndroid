@@ -28,7 +28,7 @@ public class ShowAccountActivity extends AppCompatActivity {
             tvShowAccountEmail.setText(tvShowAccountEmail.getText().toString().substring(0,
                     tvShowAccountEmail.getText().toString().indexOf(":")+1) + " " +NCapp.getUser().getEmail());
         }else{
-            tvShowAccountName.setText("Nothing");
+            tvShowAccountName.setText(R.string.nothing);
         }
 
 

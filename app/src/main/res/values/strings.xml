@@ -32,5 +32,29 @@
     <string name="sort_by_price">Sort by Price ↑/↓</string>
     <string name="to_your_basket">To your Basket</string>
     <string name="natural_corner">natural corner</string>
+    <string name="your_basket">Your Basket</string>
+    <string name="register">REGISTER</string>
+    <string name="your_email">Your Email :</string>
+    <string name="your_name">Your Name :</string>
+    <string name="denomination">Name</string>
+    <string name="price">Price</string>
+    <string name="denomination_2">Name</string>
+    <string name="commentaire_2">Comments</string>
+    <string name="price_2">Price</string>
+    <string name="added_to_basket">Added to your Basket</string>
+    <string name="not_added_to_basket">Not Added to your Basket</string>
+    <string name="incorrect_email">INCORRECT EMAIL AND/OR PASSWORD</string>
+    <string name="not_getting_anything">Not getting anything from the remote server</string>
+    <string name="incorrect_pwd">Incorrect password</string>
+    <string name="no_connexion">No connexion to the remote server</string>
+    <string name="total">"TOTAL : "</string>
+    <string name="euro">" €"</string>
+    <string name="nc_title">Natural Corner</string>
+    <string name="by_cat">By Category</string>
+    <string name="proximity_nc">You Are Close To NATURAL CORNER</string>
+    <string name="all">All</string>
+    <string name="category">CATEGORIES</string>
+    <string name="not_disabled">Notifications disabled (fake)</string>
+    <string name="nothing">Nothing</string>
 
 </resources>

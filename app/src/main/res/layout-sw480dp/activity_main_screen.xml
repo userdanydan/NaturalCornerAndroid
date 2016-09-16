@@ -26,26 +26,31 @@
             android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     </FrameLayout>
     <LinearLayout
-        android:orientation="horizontal"
-        android:name="be.daniel.naturalcornerandroid.ArticleListFragment"
-        android:id="@+id/list"
-        android:paddingTop="?attr/actionBarSize"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/cart_total"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            xmlns:android="http://schemas.android.com/apk/res/android" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="?actionBarSize"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:name="be.daniel.naturalcornerandroid.ArticleListFragment"
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/cart_total"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                xmlns:android="http://schemas.android.com/apk/res/android" />
+        </LinearLayout>
+
 
     </LinearLayout>
     <!--<fragment-->
-        <!--android:name="be.daniel.naturalcornerandroid.ArticleReaderFragment"-->
-        <!--android:id="@+id/viewer"-->
-        <!--android:layout_weight="2"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"/>-->
+    <!--android:name="be.daniel.naturalcornerandroid.ArticleReaderFragment"-->
+    <!--android:id="@+id/viewer"-->
+    <!--android:layout_weight="2"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"/>-->
 
     <ListView
 
@@ -58,5 +63,7 @@
         android:dividerHeight="1dp"
         android:background="@android:color/holo_green_light"
         android:clickable="false"></ListView>
+
+
 
 </android.support.v4.widget.DrawerLayout>
