@@ -56,5 +56,6 @@
     <string name="category">CATEGORIES</string>
     <string name="not_disabled">Notifications disabled (fake)</string>
     <string name="nothing">Nothing</string>
+    <string name="order">ORDER</string>
 
 </resources>

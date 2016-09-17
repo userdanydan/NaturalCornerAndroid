@@ -37,6 +37,7 @@ public class Panier {
     }
 
     public BigDecimal getPrixTotal() {
+        recalculer();
         return prixTotal;
     }
 
@@ -63,12 +64,6 @@ public class Panier {
         }
         return addOK;
     }
-
-    private void scinderLignesPanierPourUnMemeArticle(LignePanier lPanier) {
-
-
-    }
-
 
     public boolean retirerLigne(LignePanier lignePanier){
         if(lignes!=null) {

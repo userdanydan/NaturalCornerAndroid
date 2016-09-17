@@ -61,6 +61,15 @@ public class Commande implements Serializable {
                 ", date=" + date +
                 ", delaisCollecte=" + delaisCollecte +
                 ", montantTotal=" + montantTotal +
+                ", panier=" + panier +
                 '}';
+    }
+
+    public Panier getPanier() {
+        return panier;
+    }
+
+    public void setPanier(Panier panier) {
+        this.panier = panier;
     }
 }

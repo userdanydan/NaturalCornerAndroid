@@ -2,6 +2,7 @@ package be.daniel.naturalcornerandroid;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.Size;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -24,6 +25,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import be.daniel.naturalcornerandroid.model.Commande;
 import be.daniel.naturalcornerandroid.model.LignePanier;
 import be.daniel.naturalcornerandroid.model.Panier;
 import be.daniel.naturalcornerandroid.naturalcornerapplication.NaturalCornerApplication;
@@ -35,6 +40,8 @@ public class BasketActivity extends AppCompatActivity {
     private Panier panier;
     private boolean listDisplayed;
     private NaturalCornerApplication nCApp;
+    private Button btnBasketOrder;
+    private Commande commande;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,6 +200,30 @@ public class BasketActivity extends AppCompatActivity {
 
             counter++;
         }
+        btnBasketOrder = new Button(getApplicationContext());
+        btnBasketOrder.setText(R.string.order);
+        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        btnBasketOrder.setLayoutParams(lp);
+        btnBasketOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commande = new Commande();
+                commande.setPanier(panier);
+                Calendar calendar = Calendar.getInstance();
+                Date date = calendar.getTime();
+                commande.setDate(date);
+                commande.setDelaisCollecte(3);
+                commande.setMontantTotal(panier.getPrixTotal());
+                Toast.makeText(BasketActivity.this, commande.toString(), Toast.LENGTH_SHORT).show();
+                //TODO SEND ORDER TO THE SERVER.
+                panier.viderPanier();
+                commande=null;
+                String str = getSupportActionBar().getSubtitle().toString();
+                getSupportActionBar().setSubtitle(str.substring(0, str.indexOf(" : ")) + " : " + panier.getPrixTotal().toString() + " €");
+                tvTotal.setText(String.valueOf(panier.getPrixTotal()));
+            }
+        });
+        tableLayout.addView(btnBasketOrder);
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {

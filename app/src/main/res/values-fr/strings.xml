@@ -46,4 +46,5 @@
     <string name="your_basket">Votre panier</string>
     <string name="your_email">Votre Email : </string>
     <string name="your_name">Votre Nom : </string>
+    <string name="order">ORDER</string>
 </resources>
